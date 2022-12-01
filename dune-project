@@ -2,6 +2,6 @@
 (name AOC-Prog1)
 (version 0.0.1)
 
-(source (github jO-Osko/AOC-ocaml))
+(source (github mihagyergyek/Advent-of-Code))
 (license MIT)
-(authors "Filip Koprivec")
+(authors "Miha Gyergyek")
