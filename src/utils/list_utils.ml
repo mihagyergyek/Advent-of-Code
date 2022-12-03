@@ -154,4 +154,18 @@ module List = struct
         done
       done;
       mt
+
+  let index_of el list =
+    let rec get el acc = function
+      | [] -> failwith "List is too short."
+      | x :: xs -> if x = el then acc else get el (acc + 1) xs
+    in
+    get el 1 list
+
+  let char_list_to_string_list list =
+    let rec aux acc = function
+      | [] -> acc
+      | x :: xs -> aux (String.make 1 x :: acc) xs
+    in
+    aux [] list
 end
