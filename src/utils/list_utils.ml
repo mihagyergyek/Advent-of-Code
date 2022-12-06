@@ -160,12 +160,41 @@ module List = struct
       | [] -> failwith "List is too short."
       | x :: xs -> if x = el then acc else get el (acc + 1) xs
     in
-    get el 1 list
+    get el 0 list
 
   let char_list_to_string_list list =
     let rec aux acc = function
       | [] -> acc
       | x :: xs -> aux (String.make 1 x :: acc) xs
     in
-    aux [] list
+    aux [] list |> rev
+
+  let rec get k = function
+    | [] -> failwith "List is too short."
+    | x :: xs -> if k <= 0 then x else get (k - 1) xs
+
+  let first k list =
+    let rec aux k acc = function
+      | [] -> acc
+      | x :: xs ->
+          if List.length acc >= k then acc
+          else aux k (List.rev (x :: List.rev acc)) xs
+    in
+    aux k [] list
+
+  let from k list =
+    let rec aux k acc = function
+      | [] -> []
+      | x :: xs ->
+          if List.length list - List.length xs <= k then aux k acc xs
+          else aux k (acc @ x) xs
+    in
+    aux k [] list
+
+  let rec exist elem lst =
+    match lst with [] -> false | hd :: tl -> elem = hd || exist elem tl
+
+  (** Pridobljeno: https://discuss.ocaml.org/t/ocaml-beginner-how-do-i-check-if-there-are-duplicate-elements-in-a-list/3377 *)
+  let rec dupExist lst =
+    match lst with [] -> false | hd :: tl -> exist hd tl || dupExist tl
 end

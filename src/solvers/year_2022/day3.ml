@@ -60,7 +60,7 @@ module Solver : Solver = struct
         "Z";
       ]
     in
-    List.index_of chr abeceda
+    List.index_of chr abeceda + 1
 
   let split_in_halves str =
     let dolzina_pol = String.length str / 2 in
