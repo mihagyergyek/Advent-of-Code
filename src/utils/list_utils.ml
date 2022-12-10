@@ -182,14 +182,7 @@ module List = struct
     in
     aux k [] list
 
-  let from k list =
-    let rec aux k acc = function
-      | [] -> []
-      | x :: xs ->
-          if List.length list - List.length xs <= k then aux k acc xs
-          else aux k (acc @ x) xs
-    in
-    aux k [] list
+  let from k list = first (List.length list - k) list
 
   let rec exist elem lst =
     match lst with [] -> false | hd :: tl -> elem = hd || exist elem tl
@@ -197,4 +190,11 @@ module List = struct
   (** Pridobljeno: https://discuss.ocaml.org/t/ocaml-beginner-how-do-i-check-if-there-are-duplicate-elements-in-a-list/3377 *)
   let rec dupExist lst =
     match lst with [] -> false | hd :: tl -> exist hd tl || dupExist tl
+
+  let to_string lst =
+    let rec aux acc = function [] -> acc | x :: xs -> aux (acc ^ x) xs in
+    aux "" lst
+
+  (** Pridobljeno: https://batsov.com/articles/2022/10/24/ocaml-tips-converting-a-string-to-a-list-of-characters/ *)
+  let implode_char_list l = String.of_seq (List.to_seq l)
 end
